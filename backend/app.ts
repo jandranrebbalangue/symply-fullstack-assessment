@@ -1,7 +1,5 @@
 import fastify from "fastify"
 import http from "http"
-import fastifyJwt from "@fastify/jwt"
-import { Type } from "@sinclair/typebox"
 import { TypeBoxTypeProvider } from "@fastify/type-provider-typebox"
 import dotenv from "dotenv"
 import cors from "@fastify/cors"
@@ -12,9 +10,6 @@ const app = fastify<http.Server, http.IncomingMessage>({
   logger: true
 }).withTypeProvider<TypeBoxTypeProvider>()
 
-app.register(fastifyJwt, {
-  secret: process.env.JWT_SECRET as string
-})
 app.register(cors, {
   origin: (origin, cb) => {
     const hostname = new URL(origin as string).hostname
@@ -25,24 +20,6 @@ app.register(cors, {
     cb(new Error("Not allowed"), false)
   }
 })
-
-/* app.post( */
-/*   "/auth", */
-/*   { */
-/*     schema: { */
-/*       body: Type.Object({ */
-/*         username: Type.String(), */
-/*         password: Type.String() */
-/*       }) */
-/*     } */
-/*   }, */
-/*   async (req, reply) => { */
-/*     const { username, password } = req.body */
-/*     const token = app.jwt.sign({ username, password }) */
-/*     req.log.info({ token }) */
-/*     reply.send({ token }) */
-/*   } */
-/* ) */
 
 app.register(Tasks)
 
