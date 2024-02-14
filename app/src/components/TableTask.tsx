@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import {
   Button,
+  CircularProgress,
   Table,
   TableBody,
   TableCell,
@@ -9,6 +10,7 @@ import {
   TableRow
 } from "@mui/material"
 import { TodosProps } from "../types"
+import { updateStatus } from "../api/api"
 
 const TableTasks = () => {
   const [data, setData] = useState<TodosProps[]>([
@@ -21,19 +23,25 @@ const TableTasks = () => {
       deletedAt: new Date().toISOString()
     }
   ])
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   useEffect(() => {
     let cancel = false
     const getData = async () => {
+      setIsLoading(true)
       const res = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/tasks`)
       const json = await res.json()
       if (cancel) return
       setData(json)
+      setIsLoading(false)
     }
     getData()
     return () => {
       cancel = true
     }
   }, [])
+
+  if (isLoading) return <CircularProgress />
+
   return (
     <>
       <TableContainer>
@@ -60,8 +68,7 @@ const TableTasks = () => {
                 <TableCell>
                   <Button
                     onClick={async () => {
-                      /* await updateStatus(item.id, { status: "Completed" }) */
-                      /* await mutate("/tasks") */
+                      await updateStatus(`${item.id}`, { status: "Completed" })
                     }}
                     disabled={item.status === "Completed" ? true : false}
                     variant="contained"
