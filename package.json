@@ -5,7 +5,8 @@
     "dev": "concurrently -r  \"npm:dev:*\"",
     "dev:app": "cd ./app/ && yarn dev",
     "dev:backend": "cd ./backend/ && yarn dev",
-    "install:packages": "concurrently -r \"yarn workspace app install\" \"yarn workspace backend install\""
+    "install:packages": "concurrently -r \"yarn workspace app install\" \"yarn workspace backend install\"",
+    "build:packages": "concurrently -r \"yarn workspace app build\" \"yarn workspace backend build\""
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
