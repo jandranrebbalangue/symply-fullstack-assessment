@@ -24,9 +24,8 @@ Start the Fastify server in development mode:
 
 - `yarn dev`
 
-### `yarn test`
-
-Run test.
+For running tests, execute:
+- `yarn test`
 
 ## API Endpoints
 
