@@ -1,1 +1,1 @@
-export * from "./PersonRepository"
+export * from "./TaskRepository"
