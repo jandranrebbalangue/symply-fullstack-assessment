@@ -5,22 +5,11 @@ import { db } from "../db"
 import { Task } from "../db/types"
 import tasks from "./fixtures/fixtures.json"
 
-let token = ""
 t.before(async () => {
   await db.deleteFrom("tasks").returningAll().executeTakeFirst()
-  const response = await app.inject({
-    method: "POST",
-    url: "/auth",
-    body: {
-      username: "User",
-      password: "Pass"
-    }
-  })
-  token = response.json().token
 })
 
 t.after(() => {
-  token = ""
   app.close()
 })
 
@@ -34,9 +23,6 @@ test("Tasks", async (t) => {
           method: "POST",
           url: "/tasks",
           body: item,
-          headers: {
-            authorization: `Bearer ${token}`
-          }
         })
       )
     })
@@ -53,9 +39,6 @@ test("Tasks", async (t) => {
     const response = await app.inject({
       method: "GET",
       url: "/tasks",
-      headers: {
-        authorization: `Bearer ${token}`
-      }
     })
     t.equal(response.statusCode, 200)
     t.ok(response.json()[0], items[0])
@@ -66,9 +49,6 @@ test("Tasks", async (t) => {
     const response = await app.inject({
       method: "GET",
       url: `/tasks/${id}`,
-      headers: {
-        authorization: `Bearer ${token}`
-      }
     })
 
     t.equal(response.statusCode, 200)
@@ -85,17 +65,11 @@ test("Tasks", async (t) => {
         status: "Completed",
         updatedAt: new Date().toISOString()
       },
-      headers: {
-        authorization: `Bearer ${token}`
-      }
     })
 
     const task = await app.inject({
       method: "GET",
       url: `/tasks/${id}`,
-      headers: {
-        authorization: `Bearer ${token}`
-      }
     })
     t.equal(response.statusCode, 204)
     t.ok(task.json().data.status, "Completed")
@@ -106,9 +80,6 @@ test("Tasks", async (t) => {
     const response = await app.inject({
       method: "DELETE",
       url: `/tasks/${id}`,
-      headers: {
-        authorization: `Bearer ${token}`
-      }
     })
 
     t.equal(response.statusCode, 204)

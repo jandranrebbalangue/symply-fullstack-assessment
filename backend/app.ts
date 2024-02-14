@@ -11,14 +11,7 @@ const app = fastify<http.Server, http.IncomingMessage>({
 }).withTypeProvider<TypeBoxTypeProvider>()
 
 app.register(cors, {
-  origin: (origin, cb) => {
-    const hostname = new URL(origin as string).hostname
-    if (hostname === "localhost") {
-      cb(null, true)
-      return
-    }
-    cb(new Error("Not allowed"), false)
-  }
+  origin: process.env.NODE_ENV !== "production" ? "*" : false
 })
 
 app.register(Tasks)
