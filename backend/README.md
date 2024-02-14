@@ -7,7 +7,7 @@ A simple CRUD API built using Fastify, PostgreSQL, and Kyseley.
 ### Clone the Repository
 
 - `git clone https://github.com/jandranrebbalangue/symply-fullstack-assessment.git`
-- `cd symply-fullstack-assessment`
+- `cd symply-fullstack-assessment/backend`
 
 ### Install Dependencies
 
