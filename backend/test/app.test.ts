@@ -3,7 +3,7 @@ import { Response } from "light-my-request"
 import app from "../app"
 import { db } from "../db"
 import { Task } from "../db/types"
-import persons from "./fixtures/fixtures.json"
+import tasks from "./fixtures/fixtures.json"
 
 let token = ""
 t.before(async () => {
@@ -28,11 +28,11 @@ test("Tasks", async (t) => {
   const items: Task[] = []
   t.test("Create", async (t) => {
     const promises: Promise<Response>[] = []
-    persons.forEach((item) => {
+    tasks.forEach((item) => {
       promises.push(
         app.inject({
           method: "POST",
-          url: "/persons",
+          url: "/tasks",
           body: item,
           headers: {
             authorization: `Bearer ${token}`
@@ -52,7 +52,7 @@ test("Tasks", async (t) => {
   t.test("List", async (t) => {
     const response = await app.inject({
       method: "GET",
-      url: "/persons",
+      url: "/tasks",
       headers: {
         authorization: `Bearer ${token}`
       }
@@ -65,7 +65,7 @@ test("Tasks", async (t) => {
     const { id } = items[0]
     const response = await app.inject({
       method: "GET",
-      url: `/persons/${id}`,
+      url: `/tasks/${id}`,
       headers: {
         authorization: `Bearer ${token}`
       }
@@ -76,13 +76,13 @@ test("Tasks", async (t) => {
   })
 
   t.test("Update", async (t) => {
-    const { id, name, status } = items[0]
+    const { id, name } = items[0]
     const response = await app.inject({
       method: "PUT",
       url: `/tasks/${id}`,
       body: {
-        Name: name,
-        Status: status,
+        name,
+        status: "Completed",
         updatedAt: new Date().toISOString()
       },
       headers: {
@@ -90,7 +90,7 @@ test("Tasks", async (t) => {
       }
     })
 
-    const person = await app.inject({
+    const task = await app.inject({
       method: "GET",
       url: `/tasks/${id}`,
       headers: {
@@ -98,7 +98,7 @@ test("Tasks", async (t) => {
       }
     })
     t.equal(response.statusCode, 204)
-    t.ok(person.json().data.age, "20")
+    t.ok(task.json().data.status, "Completed")
   })
 
   t.test("Delete", async (t) => {

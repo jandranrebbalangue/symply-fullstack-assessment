@@ -55,8 +55,8 @@ export async function Tasks(fastify: FastifyTypeBox): Promise<void> {
     {
       schema: {
         body: Type.Object({
-          Name: Type.String(),
-          Status: Type.String()
+          name: Type.String(),
+          status: Type.String()
         })
       },
       onRequest: async (req) => {
@@ -64,11 +64,11 @@ export async function Tasks(fastify: FastifyTypeBox): Promise<void> {
       }
     },
     async (req, reply) => {
-      const { Name, Status } = req.body
+      const { name, status } = req.body
       const created_at = new Date().toISOString()
       const data: NewTask = {
-        name: Name,
-        status: Status,
+        name,
+        status,
         created_at
       }
 
@@ -102,8 +102,8 @@ export async function Tasks(fastify: FastifyTypeBox): Promise<void> {
           taskId: Type.Number()
         }),
         body: Type.Object({
-          Name: Type.String(),
-          Status: Type.String()
+          name: Type.String(),
+          status: Type.String()
         })
       },
       onRequest: async (req) => {
@@ -112,11 +112,11 @@ export async function Tasks(fastify: FastifyTypeBox): Promise<void> {
     },
     async (req, res) => {
       const { taskId } = req.params
-      const { Name, Status } = req.body
+      const { name, status } = req.body
       const updatedAt = new Date().toISOString()
       await updateTask(taskId, {
-        name: Name,
-        status: Status,
+        name,
+        status,
         updated_at: updatedAt
       })
       res.code(204)
