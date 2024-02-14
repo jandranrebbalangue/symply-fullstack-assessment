@@ -1,11 +1,30 @@
 import { useState } from "react"
 import FormDialog from "./components/FormDialog"
 import TableTasks from "./components/TableTask"
+import { useTask } from "./context/Tasks/useTask"
+import ConfirmationDialog from "./components/ConfirmDialog"
+import { deleteTask } from "./api/api"
+import { CircularProgress } from "@mui/material"
 
 function App() {
   const [open, setOpen] = useState(false)
+  const {
+    deleteId,
+    openConfirmDialog,
+    setOpenConfirmDialog,
+    setIsLoading,
+    isLoading
+  } = useTask()
   const handleOpen = () => setOpen((prev) => !prev)
   const handleClose = () => setOpen(false)
+  const handleCancel = () => setOpenConfirmDialog(false)
+  const deleteCurrentTask = async () => {
+    await deleteTask(`${deleteId}`)
+    setIsLoading(true)
+    setOpenConfirmDialog(false)
+    setIsLoading(false)
+  }
+  if (isLoading) return <CircularProgress />
   return (
     <>
       <FormDialog
@@ -14,6 +33,13 @@ function App() {
         handleClose={handleClose}
       />
       <TableTasks />
+      {openConfirmDialog && (
+        <ConfirmationDialog
+          deleteTask={deleteCurrentTask}
+          open={openConfirmDialog}
+          handleCancel={handleCancel}
+        />
+      )}
     </>
   )
 }

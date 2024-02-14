@@ -11,8 +11,10 @@ import {
 } from "@mui/material"
 import { TodosProps } from "../types"
 import { updateStatus } from "../api/api"
+import { useTask } from "../context/Tasks/useTask"
 
 const TableTasks = () => {
+  const { setDeleteId, setOpenConfirmDialog } = useTask()
   const [data, setData] = useState<TodosProps[]>([
     {
       id: 0,
@@ -77,8 +79,8 @@ const TableTasks = () => {
                   </Button>
                   <Button
                     onClick={() => {
-                      /* setOpenConfirmDialog(true) */
-                      /* setDeleteId(item.id) */
+                      setOpenConfirmDialog(true)
+                      setDeleteId(item.id)
                     }}
                     variant="contained"
                     color="error"
