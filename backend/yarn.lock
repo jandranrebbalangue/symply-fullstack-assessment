@@ -259,6 +259,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fastify/cors@npm:^9.0.1":
+  version: 9.0.1
+  resolution: "@fastify/cors@npm:9.0.1"
+  dependencies:
+    fastify-plugin: "npm:^4.0.0"
+    mnemonist: "npm:0.39.6"
+  checksum: 4db9d3d02edbca741c8ed053819bf3b235ecd70e07c640ed91ba0fc1ee2dc8abedbbffeb79ae1a38ccbf59832e414cad90a554ee44227d0811d5a2d062940611
+  languageName: node
+  linkType: hard
+
 "@fastify/deepmerge@npm:^1.0.0":
   version: 1.3.0
   resolution: "@fastify/deepmerge@npm:1.3.0"
@@ -4059,7 +4069,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mnemonist@npm:^0.39.5":
+"mnemonist@npm:0.39.6, mnemonist@npm:^0.39.5":
   version: 0.39.6
   resolution: "mnemonist@npm:0.39.6"
   dependencies:
@@ -5572,6 +5582,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "symply-api@workspace:."
   dependencies:
+    "@fastify/cors": "npm:^9.0.1"
     "@fastify/jwt": "npm:^7.2.4"
     "@fastify/postgres": "npm:^5.2.2"
     "@fastify/type-provider-typebox": "npm:^3.5.0"
