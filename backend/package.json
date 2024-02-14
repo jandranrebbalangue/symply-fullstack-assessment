@@ -1,5 +1,6 @@
 {
-  "name": "practice-fastify-ts",
+  "name": "symply-api",
+  "private": true,
   "packageManager": "yarn@4.0.1",
   "scripts": {
     "dev": "tsx watch ./server.ts",
