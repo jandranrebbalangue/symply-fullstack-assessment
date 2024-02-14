@@ -7,7 +7,7 @@ export type TodosProps = {
   deletedAt: string
 }
 export type AddTaskProps = {
-  task: string
+  name: string
   status: string
 }
 

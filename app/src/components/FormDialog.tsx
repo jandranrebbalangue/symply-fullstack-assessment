@@ -7,6 +7,7 @@ import Button from "@mui/material/Button"
 import React from "react"
 import * as Yup from "yup"
 import { Form, Formik } from "formik"
+import { insertTask } from "../api/api"
 
 const FormDialog = ({
   open = false,
@@ -21,16 +22,18 @@ const FormDialog = ({
     return (
       <div>
         <Formik
-          initialValues={{ name, status }}
+          initialValues={{ task: "", status: "Not Completed" }}
           {...props}
           onSubmit={async (values) => {
-            console.log({ values })
-            /* await addTask(values) */
+            const { task, status } = values
+            await insertTask({
+              name: task,
+              status
+            })
             handleClose()
-            /* await mutate("/tasks") */
           }}
           validationSchema={Yup.object().shape({
-            name: Yup.string().required()
+            task: Yup.string().required()
           })}
         >
           {(props) => {
@@ -39,7 +42,7 @@ const FormDialog = ({
               <Form onSubmit={handleSubmit} ref={ref}>
                 <TextField
                   onChange={handleChange}
-                  name="name"
+                  name="task"
                   label="Name"
                   fullWidth
                   variant="standard"
