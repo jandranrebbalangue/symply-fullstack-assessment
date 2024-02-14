@@ -1,13 +1,13 @@
 # Fastify CRUD API Project
 
-A simple CRUD API built for practice using Fastify, PostgreSQL, and Kyseley.
+A simple CRUD API built using Fastify, PostgreSQL, and Kyseley.
 
 ## Getting Started
 
 ### Clone the Repository
 
-- `git clone https://github.com/jandranrebbalangue/fastify-basic-crud.git`
-- `cd fastify-basic-crud`
+- `git clone https://github.com/jandranrebbalangue/symply-fullstack-assessment.git`
+- `cd symply-fullstack-assessment`
 
 ### Install Dependencies
 
@@ -26,9 +26,9 @@ Start the Fastify server in development mode:
 
 ## API Endpoints
 
-- Create Record: POST /persons
+- Create Record: POST /tasks
 - Read Records:
-  - All: GET /persons
-  - Single: GET /persons/:id
-- Update Record: PUT /persons/:id
-- Delete Record: DELETE /persons/:id
+  - All: GET /tasks
+  - Single: GET /tasks/:id
+- Update Record: PUT /tasks/:id
+- Delete Record: DELETE /tasks/:id
