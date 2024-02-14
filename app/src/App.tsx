@@ -5,6 +5,7 @@ import { useTask } from "./context/Tasks/useTask"
 import ConfirmationDialog from "./components/ConfirmDialog"
 import { deleteTask } from "./api/api"
 import { CircularProgress } from "@mui/material"
+import toast, { Toaster } from "react-hot-toast"
 
 function App() {
   const [open, setOpen] = useState(false)
@@ -23,10 +24,14 @@ function App() {
     setIsLoading(true)
     setOpenConfirmDialog(false)
     setIsLoading(false)
+    toast.error("Delete successfully", {
+      duration: 5000
+    })
   }
   if (isLoading) return <CircularProgress />
   return (
     <>
+      <Toaster position="top-right" />
       <FormDialog
         open={open}
         handleOpen={handleOpen}

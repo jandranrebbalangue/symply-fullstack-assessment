@@ -8,6 +8,7 @@ import React from "react"
 import * as Yup from "yup"
 import { Form, Formik } from "formik"
 import { insertTask } from "../api/api"
+import toast from "react-hot-toast"
 
 const FormDialog = ({
   open = false,
@@ -31,6 +32,9 @@ const FormDialog = ({
               status
             })
             handleClose()
+            toast.success("Add Task successfully", {
+              duration: 5000
+            })
           }}
           validationSchema={Yup.object().shape({
             task: Yup.string().required()

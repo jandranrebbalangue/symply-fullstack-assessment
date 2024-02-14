@@ -21,7 +21,7 @@ export const insertTask = async (newTask: NewTask) => {
 
 export const updateStatus = async (
   taskId: string,
-  updateWith: { status: string }
+  updateWith: { status: string; name: string }
 ) => externalApi.url(`/tasks/${taskId}`).json(updateWith).put()
 
 export const getTask = async (taskId: string) => {

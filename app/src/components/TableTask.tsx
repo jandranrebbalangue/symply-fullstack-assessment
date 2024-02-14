@@ -12,6 +12,7 @@ import {
 import { TodosProps } from "../types"
 import { updateStatus } from "../api/api"
 import { useTask } from "../context/Tasks/useTask"
+import toast from "react-hot-toast"
 
 const TableTasks = () => {
   const { setDeleteId, setOpenConfirmDialog } = useTask()
@@ -70,7 +71,13 @@ const TableTasks = () => {
                 <TableCell>
                   <Button
                     onClick={async () => {
-                      await updateStatus(`${item.id}`, { status: "Completed" })
+                      await updateStatus(`${item.id}`, {
+                        status: "Completed",
+                        name: item.name
+                      })
+                      toast.success("Successfully updated", {
+                        duration: 5000
+                      })
                     }}
                     disabled={item.status === "Completed" ? true : false}
                     variant="contained"
