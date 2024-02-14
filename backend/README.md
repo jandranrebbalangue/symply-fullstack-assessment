@@ -24,6 +24,10 @@ Start the Fastify server in development mode:
 
 - `yarn dev`
 
+### `yarn test`
+
+Run test.
+
 ## API Endpoints
 
 - Create Record: POST /tasks
