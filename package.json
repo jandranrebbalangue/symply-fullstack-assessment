@@ -1,4 +1,16 @@
 {
   "name": "symply-fullstack-assesment",
-  "packageManager": "yarn@4.0.1"
+  "packageManager": "yarn@4.0.1",
+  "scripts": {
+    "dev": "concurrently -r  \"npm:dev:*\"",
+    "dev:app": "cd ./app/ && yarn dev",
+    "dev:backend": "cd ./backend/ && yarn dev"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "workspaces": [
+    "app/*",
+    "backend/*"
+  ]
 }

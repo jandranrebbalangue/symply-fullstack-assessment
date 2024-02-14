@@ -12,3 +12,8 @@
 #!.yarn/cache
 .pnp.*
 node_modules
+.env
+.tap
+dist
+postgres
+pgdata
