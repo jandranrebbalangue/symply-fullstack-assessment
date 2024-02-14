@@ -4,13 +4,14 @@
   "scripts": {
     "dev": "concurrently -r  \"npm:dev:*\"",
     "dev:app": "cd ./app/ && yarn dev",
-    "dev:backend": "cd ./backend/ && yarn dev"
+    "dev:backend": "cd ./backend/ && yarn dev",
+    "install:packages": "concurrently -r \"yarn workspace app install\" \"yarn workspace backend install\""
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
   },
   "workspaces": [
-    "symply-api",
+    "backend",
     "app"
   ]
 }
