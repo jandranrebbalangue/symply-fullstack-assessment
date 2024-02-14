@@ -8,7 +8,8 @@
     "test": "tap --reporter=list",
     "db:generate": "kysely-codegen",
     "start": "node dist/server.js",
-    "build": "tsc --build --clean && tsc"
+    "build": "tsc --build --clean && tsc",
+    "db:migration": "tsx ./migrations/index.ts"
   },
   "devDependencies": {
     "@sinclair/typebox": "^0.32.3",
