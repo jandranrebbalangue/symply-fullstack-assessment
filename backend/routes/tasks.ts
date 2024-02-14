@@ -39,10 +39,10 @@ export async function Tasks(fastify: FastifyTypeBox): Promise<void> {
             })
           )
         }
-      },
-      onRequest: async (req) => {
-        await req.jwtVerify()
       }
+      /* onRequest: async (req) => { */
+      /*   await req.jwtVerify() */
+      /* } */
     },
     async (_req, reply) => {
       const tasks = await getAllTask()
@@ -58,10 +58,10 @@ export async function Tasks(fastify: FastifyTypeBox): Promise<void> {
           name: Type.String(),
           status: Type.String()
         })
-      },
-      onRequest: async (req) => {
-        await req.jwtVerify()
       }
+      /* onRequest: async (req) => { */
+      /*   await req.jwtVerify() */
+      /* } */
     },
     async (req, reply) => {
       const { name, status } = req.body
@@ -83,10 +83,10 @@ export async function Tasks(fastify: FastifyTypeBox): Promise<void> {
         params: Type.Object({
           taskId: Type.Number()
         })
-      },
-      onRequest: async (req) => {
-        await req.jwtVerify()
       }
+      /* onRequest: async (req) => { */
+      /*   await req.jwtVerify() */
+      /* } */
     },
     async (req, res) => {
       const { taskId } = req.params
@@ -105,10 +105,10 @@ export async function Tasks(fastify: FastifyTypeBox): Promise<void> {
           name: Type.String(),
           status: Type.String()
         })
-      },
-      onRequest: async (req) => {
-        await req.jwtVerify()
       }
+      /* onRequest: async (req) => { */
+      /*   await req.jwtVerify() */
+      /* } */
     },
     async (req, res) => {
       const { taskId } = req.params
@@ -130,10 +130,10 @@ export async function Tasks(fastify: FastifyTypeBox): Promise<void> {
         params: Type.Object({
           taskId: Type.Number()
         })
-      },
-      onRequest: async (req) => {
-        await req.jwtVerify()
       }
+      /* onRequest: async (req) => { */
+      /*   await req.jwtVerify() */
+      /* } */
     },
     async (req, res) => {
       const { taskId } = req.params

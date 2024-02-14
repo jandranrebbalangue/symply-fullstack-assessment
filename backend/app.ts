@@ -26,23 +26,23 @@ app.register(cors, {
   }
 })
 
-app.post(
-  "/auth",
-  {
-    schema: {
-      body: Type.Object({
-        username: Type.String(),
-        password: Type.String()
-      })
-    }
-  },
-  async (req, reply) => {
-    const { username, password } = req.body
-    const token = app.jwt.sign({ username, password })
-    req.log.info({ token })
-    reply.send({ token })
-  }
-)
+/* app.post( */
+/*   "/auth", */
+/*   { */
+/*     schema: { */
+/*       body: Type.Object({ */
+/*         username: Type.String(), */
+/*         password: Type.String() */
+/*       }) */
+/*     } */
+/*   }, */
+/*   async (req, reply) => { */
+/*     const { username, password } = req.body */
+/*     const token = app.jwt.sign({ username, password }) */
+/*     req.log.info({ token }) */
+/*     reply.send({ token }) */
+/*   } */
+/* ) */
 
 app.register(Tasks)
 

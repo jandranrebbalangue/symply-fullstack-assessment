@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react"
 import {
   Button,
   Table,
@@ -10,16 +11,29 @@ import {
 import { TodosProps } from "../types"
 
 const TableTasks = () => {
-  const data: TodosProps[] = [
+  const [data, setData] = useState<TodosProps[]>([
     {
-      id: 1,
-      name: "Test",
-      status: "Completed",
+      id: 0,
+      name: "",
+      status: "",
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
       deletedAt: new Date().toISOString()
     }
-  ]
+  ])
+  useEffect(() => {
+    let cancel = false
+    const getData = async () => {
+      const res = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/tasks`)
+      const json = await res.json()
+      if (cancel) return
+      setData(json)
+    }
+    getData()
+    return () => {
+      cancel = true
+    }
+  }, [])
   return (
     <>
       <TableContainer>

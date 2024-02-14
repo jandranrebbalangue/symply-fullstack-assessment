@@ -2,11 +2,8 @@ import * as z from "zod"
 import wretch from "wretch"
 import { NewTask } from "../../../backend/db/types"
 
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJwYXNzd29yZCI6InRlc3QxMjMiLCJpYXQiOjE3MDc5MDczNzF9.YWr10_OJBxPoouZ1cZS1S6Oh9zRDeIWFQKpk9Buvmo4"
-const externalApi = wretch(import.meta.env.VITE_API_ENDPOINT).auth(
-  `Bearer ${token}`
-)
+const externalApi = wretch(import.meta.env.VITE_API_ENDPOINT)
+
 export const insertTask = async (newTask: NewTask) => {
   const schema = z.object({
     name: z.string(),
