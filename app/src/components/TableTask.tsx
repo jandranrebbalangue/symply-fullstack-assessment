@@ -1,3 +1,5 @@
+import useSWR, { mutate } from "swr"
+import toast from "react-hot-toast"
 import {
   Button,
   Checkbox,
@@ -12,9 +14,7 @@ import {
 import { TodosProps } from "../types"
 import { updateStatus } from "../api/api"
 import { useTask } from "../context/Tasks/useTask"
-import toast from "react-hot-toast"
 import { fetcher } from "../utils/fetcher"
-import useSWR, { mutate } from "swr"
 
 const TableTasks = () => {
   const { data, isLoading } = useSWR<TodosProps[]>("/tasks", fetcher)
@@ -47,18 +47,8 @@ const TableTasks = () => {
                 <TableCell>{item.status}</TableCell>
                 <TableCell>
                   <Checkbox
-                    onClick={async () => {
-                      if (item.status !== "Complete") {
-                        await updateStatus(`${item.id}`, {
-                          status: "Complete",
-                          name: item.name
-                        })
-                        toast.success("Successfully updated", {
-                          duration: 5000
-                        })
-                        await mutate("/tasks")
-                      }
-
+                    key={item.id}
+                    onChange={async () => {
                       if (item.status === "Complete") {
                         await updateStatus(`${item.id}`, {
                           status: "Not Complete",
@@ -67,10 +57,18 @@ const TableTasks = () => {
                         toast.success("Successfully updated", {
                           duration: 5000
                         })
-                        await mutate("/tasks")
+                      } else {
+                        await updateStatus(`${item.id}`, {
+                          status: "Complete",
+                          name: item.name
+                        })
+                        toast.success("Successfully updated", {
+                          duration: 5000
+                        })
                       }
+                      mutate("/tasks")
                     }}
-                    defaultChecked={item.status === "Complete" ? true : false}
+                    inputProps={{ "aria-label": "controlled" }}
                     value={item.status}
                   />
                   <Button
