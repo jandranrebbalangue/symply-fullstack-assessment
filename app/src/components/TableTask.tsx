@@ -92,7 +92,6 @@ const TableTasks = () => {
                     variant="contained"
                     color="error"
                     style={{ marginLeft: "10px" }}
-                    disabled={item.status === "Completed" ? true : false}
                   >
                     Delete
                   </Button>
