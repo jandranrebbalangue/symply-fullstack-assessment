@@ -62,7 +62,7 @@ const TableTasks = () => {
                 <TableCell
                   style={{
                     textDecorationLine:
-                      item.status === "Completed" ? "line-through" : "none"
+                      item.status === "Complete" ? "line-through" : "none"
                   }}
                 >
                   {item.name}
@@ -71,18 +71,28 @@ const TableTasks = () => {
                 <TableCell>
                   <Button
                     onClick={async () => {
-                      await updateStatus(`${item.id}`, {
-                        status: "Completed",
-                        name: item.name
-                      })
-                      toast.success("Successfully updated", {
-                        duration: 5000
-                      })
+                      if (item.status !== "Complete") {
+                        await updateStatus(`${item.id}`, {
+                          status: "Complete",
+                          name: item.name
+                        })
+                        toast.success("Successfully updated", {
+                          duration: 5000
+                        })
+                      } else {
+                        await updateStatus(`${item.id}`, {
+                          status: "Not Complete",
+                          name: item.name
+                        })
+
+                        toast.success("Successfully updated", {
+                          duration: 5000
+                        })
+                      }
                     }}
-                    disabled={item.status === "Completed" ? true : false}
                     variant="contained"
                   >
-                    Complete
+                    {item.status === "Complete" ? "Not Complete" : "Complete"}
                   </Button>
                   <Button
                     onClick={() => {

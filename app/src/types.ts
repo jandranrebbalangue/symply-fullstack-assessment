@@ -14,3 +14,9 @@ export type AddTaskProps = {
 export type UpdateStatusProps = {
   status: string
 }
+export type AnimeProps = {
+  id: number
+  quote: string
+  anime: string
+  character: string
+}

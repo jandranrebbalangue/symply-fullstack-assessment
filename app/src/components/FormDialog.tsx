@@ -23,7 +23,7 @@ const FormDialog = ({
     return (
       <div>
         <Formik
-          initialValues={{ task: "", status: "Not Completed" }}
+          initialValues={{ task: "", status: "Not Complete" }}
           {...props}
           onSubmit={async (values) => {
             const { task, status } = values
