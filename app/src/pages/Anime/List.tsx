@@ -20,7 +20,7 @@ const List = () => {
     let cancel = false
     const getData = async () => {
       setIsLoading(true)
-      const res = await fetch(`https://animechan.xyz/api/quotes`)
+      const res = await fetch("https://animechan.xyz/api/quotes")
       const json = await res.json()
       if (cancel) return
       setData(json)
