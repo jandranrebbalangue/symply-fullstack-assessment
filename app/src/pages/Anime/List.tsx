@@ -6,11 +6,14 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TableRow
+  TableRow,
+  Button
 } from "@mui/material"
+import { useNavigate } from "react-router-dom"
 import { AnimeProps } from "../../types"
 
 const List = () => {
+  const navigate = useNavigate()
   const [data, setData] = useState<AnimeProps[]>()
   const [isLoading, setIsLoading] = useState<boolean>(false)
   useEffect(() => {
@@ -34,6 +37,14 @@ const List = () => {
   return (
     <>
       <TableContainer>
+        <Button
+          variant="outlined"
+          onClick={() => {
+            navigate(-1)
+          }}
+        >
+          Back
+        </Button>
         <Table>
           <TableHead>
             <TableRow>
@@ -46,6 +57,7 @@ const List = () => {
           <TableBody>
             {data?.map((item: AnimeProps) => (
               <TableRow key={item.id}>
+                <TableCell>{item.id}</TableCell>
                 <TableCell>{item.quote}</TableCell>
                 <TableCell>{item.anime}</TableCell>
                 <TableCell>{item.character}</TableCell>

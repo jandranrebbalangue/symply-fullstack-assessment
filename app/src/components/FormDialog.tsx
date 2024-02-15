@@ -9,6 +9,7 @@ import * as Yup from "yup"
 import { Form, Formik } from "formik"
 import { insertTask } from "../api/api"
 import toast from "react-hot-toast"
+import { useNavigate } from "react-router-dom"
 
 const FormDialog = ({
   open = false,
@@ -19,6 +20,7 @@ const FormDialog = ({
   handleOpen: React.MouseEventHandler<HTMLButtonElement>
   handleClose: () => void
 }) => {
+  const navigate = useNavigate()
   const MyForm = React.forwardRef<HTMLFormElement>((props, ref) => {
     return (
       <div>
@@ -66,6 +68,15 @@ const FormDialog = ({
     <div>
       <Button variant="outlined" onClick={handleOpen}>
         Add Todo
+      </Button>
+      <Button
+        variant="outlined"
+        onClick={() => {
+          navigate("/anime")
+        }}
+        style={{ marginLeft: "10px" }}
+      >
+        Anime
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Add Todo</DialogTitle>
