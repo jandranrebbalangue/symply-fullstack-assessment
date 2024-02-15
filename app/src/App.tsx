@@ -1,11 +1,12 @@
 import { useState } from "react"
+import { CircularProgress } from "@mui/material"
+import toast, { Toaster } from "react-hot-toast"
+import { mutate } from "swr"
 import FormDialog from "./components/FormDialog"
 import TableTasks from "./components/TableTask"
 import { useTask } from "./context/Tasks/useTask"
 import ConfirmationDialog from "./components/ConfirmDialog"
 import { deleteTask } from "./api/api"
-import { CircularProgress } from "@mui/material"
-import toast, { Toaster } from "react-hot-toast"
 
 function App() {
   const [open, setOpen] = useState(false)
@@ -27,6 +28,7 @@ function App() {
     toast.error("Delete successfully", {
       duration: 5000
     })
+    mutate("/tasks")
   }
   if (isLoading) return <CircularProgress />
   return (
