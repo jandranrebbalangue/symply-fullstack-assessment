@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react"
 import {
   Button,
+  Checkbox,
   CircularProgress,
   Table,
   TableBody,
@@ -13,35 +13,12 @@ import { TodosProps } from "../types"
 import { updateStatus } from "../api/api"
 import { useTask } from "../context/Tasks/useTask"
 import toast from "react-hot-toast"
+import { fetcher } from "../utils/fetcher"
+import useSWR, { mutate } from "swr"
 
 const TableTasks = () => {
+  const { data, isLoading } = useSWR<TodosProps[]>("/tasks", fetcher)
   const { setDeleteId, setOpenConfirmDialog } = useTask()
-  const [data, setData] = useState<TodosProps[]>([
-    {
-      id: 0,
-      name: "",
-      status: "",
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-      deletedAt: new Date().toISOString()
-    }
-  ])
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  useEffect(() => {
-    let cancel = false
-    const getData = async () => {
-      setIsLoading(true)
-      const res = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/tasks`)
-      const json = await res.json()
-      if (cancel) return
-      setData(json)
-      setIsLoading(false)
-    }
-    getData()
-    return () => {
-      cancel = true
-    }
-  }, [])
 
   if (isLoading) return <CircularProgress />
 
@@ -69,7 +46,7 @@ const TableTasks = () => {
                 </TableCell>
                 <TableCell>{item.status}</TableCell>
                 <TableCell>
-                  <Button
+                  <Checkbox
                     onClick={async () => {
                       if (item.status !== "Complete") {
                         await updateStatus(`${item.id}`, {
@@ -79,21 +56,23 @@ const TableTasks = () => {
                         toast.success("Successfully updated", {
                           duration: 5000
                         })
-                      } else {
+                        await mutate("/tasks")
+                      }
+
+                      if (item.status === "Complete") {
                         await updateStatus(`${item.id}`, {
                           status: "Not Complete",
                           name: item.name
                         })
-
                         toast.success("Successfully updated", {
                           duration: 5000
                         })
+                        await mutate("/tasks")
                       }
                     }}
-                    variant="contained"
-                  >
-                    {item.status === "Complete" ? "Not Complete" : "Complete"}
-                  </Button>
+                    defaultChecked={item.status === "Complete" ? true : false}
+                    value={item.status}
+                  />
                   <Button
                     onClick={() => {
                       setOpenConfirmDialog(true)
@@ -114,4 +93,5 @@ const TableTasks = () => {
     </>
   )
 }
+
 export default TableTasks
