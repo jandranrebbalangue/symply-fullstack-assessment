@@ -1,15 +1,16 @@
+import React from "react"
+import * as Yup from "yup"
+import { Form, Formik } from "formik"
+import toast from "react-hot-toast"
+import { useNavigate } from "react-router-dom"
+import { mutate } from "swr"
+import { insertTask } from "../api/api"
 import DialogContent from "@mui/material/DialogContent"
 import Dialog from "@mui/material/Dialog"
 import DialogTitle from "@mui/material/DialogTitle"
 import DialogActions from "@mui/material/DialogActions"
 import TextField from "@mui/material/TextField"
 import Button from "@mui/material/Button"
-import React from "react"
-import * as Yup from "yup"
-import { Form, Formik } from "formik"
-import { insertTask } from "../api/api"
-import toast from "react-hot-toast"
-import { useNavigate } from "react-router-dom"
 
 const FormDialog = ({
   open = false,
@@ -37,6 +38,7 @@ const FormDialog = ({
             toast.success("Add Task successfully", {
               duration: 5000
             })
+            mutate("/tasks")
           }}
           validationSchema={Yup.object().shape({
             task: Yup.string().required()
